@@ -36,21 +36,7 @@ class MyApp extends StatelessWidget {
                 ],
               )
           ),
-          Column(
-            children: [
-              const Text(
-                '41',
-                style: TextStyle(
-                  fontSize: 24
-                ),
-              ),
-              Icon(
-                Icons.star,
-                color: Colors.lightBlueAccent,
-                size: 10,
-              ),
-            ],
-          )
+          FavoriteWidget(),
         ],
       ),
     );
@@ -122,4 +108,57 @@ class MyApp extends StatelessWidget {
       ],
     );
   }
+}
+
+class FavoriteWidget extends StatefulWidget {
+  const FavoriteWidget({Key? key}): super(key: key);
+
+  @override
+  _FavoriteWidgetState createState() => _FavoriteWidgetState();
+}
+
+class _FavoriteWidgetState extends State<FavoriteWidget> {
+  bool _isFav = true;
+  int _favCount = 41;
+
+  void _toggleFav() {
+    setState(() {
+      if (_isFav) {
+        _favCount -= 1;
+        _isFav = false;
+      } else {
+        _favCount += 1;
+        _isFav = true;
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(0),
+          child: Column(
+            children: [
+              IconButton(
+                icon: (_isFav? const Icon(Icons.star): const Icon(Icons.star_border)),
+                iconSize: 30,
+                color: Colors.lightBlueAccent,
+                onPressed: _toggleFav,
+              ),
+              Text(
+                '$_favCount',
+                style: TextStyle(
+                    fontSize: 10
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
 }
